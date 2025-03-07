@@ -1,0 +1,101 @@
+@import '../../utils/mixins';
+
+.navbar {
+    z-index: 10;
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    
+    &_nav {
+        background-color: white;
+        height: 100vh;
+        width: 450px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        
+        &_title {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            margin: 30px 60px;
+            font-family: 'TitleFont';
+            font-size: 60px;
+        }
+
+        &_list {
+            display: flex;
+            height: auto;
+            list-style-type: none;
+            flex-direction: column;
+            margin: auto 0;
+            
+            &_item {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                margin: 0 60px;
+                &_navtext {
+                    font-family: 'MainFont';
+                    font-size: 40px;
+                    &:hover {
+                        color:fuchsia;
+                        cursor: pointer;
+                    }
+                }
+            
+            }
+        }
+
+
+        &_soundbanksList {
+            list-style-type: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0;
+            
+            &--open {
+                animation: openList 2s ease forwards;
+            }
+            &--close {
+                animation: closeList 1s ease forwards;
+                
+            }
+
+            &_item {
+                &:hover {
+                    cursor: pointer;
+                    color: fuchsia;
+                }
+                
+                overflow: hidden;
+
+                &--a {
+                    background-image: url('../../../public/assets/home2.webp');
+                    color: rgb(255, 255, 255);
+                }
+                &--b {
+                    background-image: url('../../../public/assets/home.webp');
+                    color: black;
+                }
+                &--c {
+                    background-image: url('../../../public/assets/home4.webp');
+                    background-position: center;
+                    background-size: cover;
+                    color: rgb(0, 0, 0);
+                }
+
+                &_navtext {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    margin-left: 30px;
+                    font-family: 'TitleFont';
+                    font-size: 40px;
+                    
+                }
+            }
+        }
+    }
+}
