@@ -20,7 +20,7 @@ const mongoose = require('mongoose');
 
 
 // const projectsRoutes = require('./routes/projects');
-// const tripsRoutes = require('./routes/trips');
+const categoriesRoutes = require('./routes/categories');
 const soundsRoutes = require('./routes/sounds');
 
 
@@ -34,11 +34,14 @@ const soundsRoutes = require('./routes/sounds');
 const path = require ('path');
 
 // Connexion à mongoose avec l'adresse srv donnée lors de la création du cluster contenant le password
-mongoose.connect(SECRET_MONGODBKEY,
+mongoose.connect(process.env.SECRET_MONGODBKEY,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !')) // écrit dans la console du terminal
-  .catch(() => console.log('Connexion à MongoDB échouée !'));
+  .catch((error) => {
+    console.error('❌ Connexion à MongoDB échouée !');
+    console.error('🔍 Erreur :', error.message);
+  });
 
 /*-----------------------------------------------------------
 
@@ -75,7 +78,7 @@ app.use(express.json());
 
 
 // app.use ('/api/projects', projectsRoutes);
-// app.use ('/api/trips', tripsRoutes);
+app.use ('/api/categories', categoriesRoutes);
 app.use ('/api/sounds', soundsRoutes);
 
 

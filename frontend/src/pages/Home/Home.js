@@ -2,7 +2,7 @@ import './Home.scss'
 // import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
-import { LibrairiesContext } from '../../utils/LibrairiesContext'
+import { LibrariesContext } from '../../utils/LibrariesContext'
 import React, { useContext, useState, useEffect } from 'react'
 
 function Home () {

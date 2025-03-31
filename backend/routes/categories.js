@@ -1,7 +1,7 @@
 const express = require ('express');
 const router = express.Router();
-const soundsCtrl = require ('../controllers/sounds');
-const generatePreview = require("../middlewares/generatePreview");
+const categoriesCtrl = require ('../controllers/categories');
+const uploadCategoryImage = require("../middlewares/uploadCategoryImage");
 // const multer = require('../middlewares/multer-config');
 // const auth = require('../middlewares/auth');
 // const uploadImages = require('../middlewares/uploadImages').uploadImages;
@@ -21,27 +21,27 @@ router.post('/',
             //     { name: 'images'},
             //     { name: 'sketches'}
             //   ]),
-            // uploadImages,
-            generatePreview, 
-            soundsCtrl.uploadSound);
+            uploadCategoryImage,
+            // generatePreview, 
+            categoriesCtrl.createCategory);
             
 router.get('/',
-            soundsCtrl.getAllSounds);
+            categoriesCtrl.getAllCategories);
 
-router.get('/:id', 
-            soundsCtrl.getOneSound);
+// router.get('/:id', 
+//             categoriesCtrl.getOneCategory);
 
-router.delete ('/:id',
-            // auth, 
-            soundsCtrl.deleteOneSound);
+// router.delete ('/:id',
+//             // auth, 
+//             categoriesCtrl.deleteOneCategory);
 
-router.put ('/:id',
-            // auth, 
-            // multer.fields([
-            //     { name: 'images'},
-            //     { name: 'sketches'}
-            //   ]),
-            // uploadImages, 
-            soundsCtrl.updateOneSound);
+// router.put ('/:id',
+//             // auth, 
+//             // multer.fields([
+//             //     { name: 'images'},
+//             //     { name: 'sketches'}
+//             //   ]),
+//             // uploadImages, 
+//             categoriesCtrl.updateOneCategory);
 
 module.exports = router;

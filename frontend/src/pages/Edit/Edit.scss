@@ -1,0 +1,19 @@
+@import '../../utils/mixins';
+
+.edit {
+    
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    justify-content: flex-end;
+
+    &_container {
+        display: flex;
+        flex-direction: column;
+    }
+
+}
+
+.done {
+    color: green;
+}

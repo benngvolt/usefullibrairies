@@ -1,15 +1,46 @@
-const Sound = require('../models/sound')
+
+
+const Category = require('../models/category')
 // const { storage, bucket } = require('../config/storage');
+
+
+
+exports.createCategory = async (req, res) => {
+    const { name, description } = req.body;
+    const imageUrl = req.imageUrl;
+  
+    if (!name || !imageUrl) {
+      return res.status(400).json({ error: "Nom et image requis" });
+    }
+  
+    try {
+      const newCategory = new Category({
+        name,
+        description,
+        imageUrl,
+      });
+  
+      await newCategory.save();
+      res.status(201).json(newCategory);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Erreur MongoDB" });
+    }
+  };
 
 /*------------------------
 ----- GET ALL PROJECTS ---
 -------------------------*/
 
-exports.getAllSounds = (req, res) => {
-    Sound.find()
-      .then (sounds =>res.status(200).json(sounds))
-      .catch (error => res.status (400).json({error}))
-  }
+exports.getAllCategories = async (req, res) => {
+    try {
+      const categories = await Category.find();
+      res.status(200).json(categories);
+    } catch (err) {
+      console.error("Erreur MongoDB :", err.message);
+      res.status(500).json({ error: "Erreur serveur" });
+    }
+  };
 
 /*------------------------
 ----- GET ONE PROJECT ----
@@ -43,70 +74,6 @@ exports.deleteOneSound = async (req, res, next) => {
   }
 };
 
-
-/*------------------------
------ CREATE PROJECT -----
-------------------------*/
-
-// exports.uploadSound = async (req, res) => {
-    
-//     const soundData = req.body;
-//     // const images = req.newImagesObjects;
-//     // const sketches = req.newSketchesObjects;
-  
-//     const descriptionWithBr = req.body.description
-//     console.log("📥 Données reçues :", soundData);
-//     console.log("🎧 URL preview :", req.previewUrl);
-//     if (!soundData.name || !req.previewUrl) {
-//       return res.status(400).json({ error: 'Le champ "name" ou "previewUrl" est manquant dans la demande.' });
-//     }
-  
-//     try {
-//       // if (serieImages.length === req.newImagesObjects.length) {
-//         // Si toutes les images ont été traitées, créez une nouvelle instance du modèle Serie
-//         const sound = new Sound({
-//           ... soundData,
-//           description: descriptionWithBr,
-//           previewUrl: req.previewUrl
-//           // images: images,
-//           // sketches: sketches
-//         });
-//         await sound.save();
-//         res.status(201).json({ message: 'Projet sonore enregistré !' });
-//       // }
-//     } catch (error) {
-//       console.error("❌ Erreur enregistrement sound :", error.message);
-//       res.status(500).json({
-//         error: "Erreur lors de l'enregistrement du son",
-//         details: error.message
-//       });
-//     }
-//   };
-
-exports.uploadSound = async (req, res) => {
-  const { name, description, categoryId, price } = req.body;
-
-  if (!name || !req.previewUrl || !req.url) {
-    return res.status(400).json({ error: 'Champs requis manquants (name, previewUrl, url).' });
-  }
-
-  try {
-    const sound = new Sound({
-      name,
-      description,
-      categoryId,
-      price: price ? parseFloat(price) : undefined,
-      previewUrl: req.previewUrl,
-      url: req.url,
-    });
-
-    await sound.save();
-    res.status(201).json({ message: "Son et preview enregistrés avec succès", sound });
-  } catch (error) {
-    console.error("❌ Erreur enregistrement :", error.message);
-    res.status(500).json({ error: "Erreur MongoDB", details: error.message });
-  }
-};
 
 /*--------------------------
 ----- UPDATE ONE PROJECT -----
